@@ -13,9 +13,9 @@ import SaveIcon from '../assets/save.svg?react';
 import toolState from '../store/toolState';
 import canvasState from '../store/canvasState';
 
-import Brush from '../tools/Brush';
-import Rect from '../tools/Rect';
-import Circle from '../tools/Circle';
+import { Brush } from '../tools/Brush';
+import { Rect } from '../tools/Rect';
+import { Circle } from '../tools/Circle';
 
 const Toolbar = observer(() => {
   const canvas = canvasState.canvas;

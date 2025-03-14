@@ -1,6 +1,6 @@
 import Tool from './Tool';
 
-export default class Circle extends Tool {
+export class Circle extends Tool {
   constructor(canvas) {
     super(canvas);
     this.activate();
@@ -41,8 +41,7 @@ export default class Circle extends Tool {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
       this.ctx.beginPath();
-      this.ctx.arc(x, y, r, 0, 0);
-      //   this.ctx.fill();
+      this.ctx.arc(x, y, r, 0, 2 * Math.PI);
       this.ctx.stroke();
     };
     console.log('draw');
