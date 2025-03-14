@@ -1,0 +1,30 @@
+.toolbar {
+    height: var(--toolbar-height);
+    background-color: white;
+    width: 100%;
+    box-shadow: 0 4px 5px gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    
+    &__container {
+        flex: 0 1 1000px;
+        width: 100%;
+        max-width: 1000px;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        gap: 10px;
+
+    }
+
+    &__btn {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+
+}
+
