@@ -11,6 +11,10 @@ class Tool {
     this.canvas.onmousemove = null;
     this.canvas.onmousedown = null;
   }
+
+  getMouseCoor(e) {
+    return [e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop];
+  }
 }
 
 export default Tool;

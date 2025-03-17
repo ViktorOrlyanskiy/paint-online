@@ -1,6 +1,6 @@
 import Tool from './Tool';
 
-export class Rect extends Tool {
+export class Line extends Tool {
   constructor(canvas) {
     super(canvas);
     this.mouseDown = false;
@@ -19,38 +19,44 @@ export class Rect extends Tool {
 
   mouseDownHandler(e) {
     this.mouseDown = true;
-    this.ctx.beginPath();
     const [startX, startY] = this.getMouseCoor(e);
     this.startX = startX;
     this.startY = startY;
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(startX, startY);
 
     this.savedCanvas = this.canvas.toDataURL();
   }
 
   mouseMoveHandler(e) {
     if (this.mouseDown) {
-      const [currentX, currentY] = this.getMouseCoor(e);
-      const width = currentX - this.startX;
-      const height = currentY - this.startY;
-      this.draw(this.startX, this.startY, width, height);
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      if (this.savedCanvas) {
+        const img = new Image();
+        img.src = this.savedCanvas;
+        img.onload = () => {
+          this.ctx.drawImage(img, 0, 0);
+          const [currentX, currentY] = this.getMouseCoor(e);
+          this.draw(currentX, currentY);
+        };
+      }
     }
   }
 
   mouseUpHandler(e) {
     this.mouseDown = false;
+    const [endX, endY] = this.getMouseCoor(e);
+    this.draw(endX, endY);
   }
 
-  draw(x, y, w, h) {
-    const img = new Image();
-    img.src = this.savedCanvas;
-    img.onload = () => {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
-      this.ctx.beginPath();
-      this.ctx.rect(x, y, w, h);
-      this.ctx.fill();
-      this.ctx.stroke();
-    };
+  draw(x, y) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.startX, this.startY);
+    this.ctx.lineTo(x, y);
+    this.ctx.stroke();
+
     console.log('draw');
   }
 }

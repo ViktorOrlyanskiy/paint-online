@@ -16,6 +16,8 @@ import canvasState from '../store/canvasState';
 import { Brush } from '../tools/Brush';
 import { Rect } from '../tools/Rect';
 import { Circle } from '../tools/Circle';
+import { Eraser } from '../tools/Eraser';
+import { Line } from '../tools/Line';
 
 const Toolbar = observer(() => {
   const canvas = canvasState.canvas;
@@ -42,10 +44,16 @@ const Toolbar = observer(() => {
         >
           <CircleIcon />
         </button>
-        <button className="toolbar__btn">
+        <button
+          className="toolbar__btn"
+          onClick={() => toolState.setTool(new Eraser(canvas))}
+        >
           <EraserIcon />
         </button>
-        <button className="toolbar__btn">
+        <button
+          className="toolbar__btn"
+          onClick={() => toolState.setTool(new Line(canvas))}
+        >
           <LineIcon />
         </button>
         <input type="color" />

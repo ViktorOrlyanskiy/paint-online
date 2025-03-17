@@ -3,6 +3,11 @@ import Tool from './Tool';
 export class Circle extends Tool {
   constructor(canvas) {
     super(canvas);
+    this.mouseDown = false;
+    this.centerX = null;
+    this.centerY = null;
+    this.savedCanvas = null;
+
     this.activate();
   }
 
@@ -10,10 +15,6 @@ export class Circle extends Tool {
     this.canvas.onmouseup = this.mouseUpHandler.bind(this);
     this.canvas.onmousemove = this.mouseMoveHandler.bind(this);
     this.canvas.onmousedown = this.mouseDownHandler.bind(this);
-  }
-
-  mouseUpHandler(e) {
-    this.mouseDown = false;
   }
 
   mouseDownHandler(e) {
@@ -34,6 +35,10 @@ export class Circle extends Tool {
     }
   }
 
+  mouseUpHandler(e) {
+    this.mouseDown = false;
+  }
+
   draw(x, y, r) {
     const img = new Image();
     img.src = this.savedCanvas;
@@ -45,10 +50,6 @@ export class Circle extends Tool {
       this.ctx.stroke();
     };
     console.log('draw');
-  }
-
-  getMouseCoor(e) {
-    return [e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop];
   }
 
   calcRadius(endX, endY) {
